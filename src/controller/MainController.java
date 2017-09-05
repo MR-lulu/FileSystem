@@ -28,7 +28,8 @@ public class MainController {
 	@FXML private TableColumn<Document, String> modifyTimeColumn;
 	@FXML private TableColumn<Document, String> typeColumn;
 	@FXML private TableColumn<Document, Integer> sizeColumn;
-
+	private ObservableList<Document> documents = FXCollections.observableArrayList();
+	
 	@FXML private Label ownerLabel;
 	@FXML private Label createTimeLabel;
 	@FXML private Label positionLabel;
@@ -53,12 +54,13 @@ public class MainController {
 		
 	}
 	private void setTableView() {
-		ObservableList<Document> documents = FXCollections.observableArrayList();
-		documents.add(new Document("bin",1,0,"admin","2017-9-4","2017-9-4",1));
+		documents.add(new Document("home",0,0,"pcy","2017-9-4","2017-9-4",1));
+		documents.add(new Document("data.txt",1,0,"admin","2017-9-4","2017-9-4",2));
+		documents.add(new Document("bin",0,0,"admin","2017-9-4","2017-9-4",1));
 		tableView.setItems(documents);
 		tableView.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> {
-					
+					showFileDetails(newValue);
 				});
 	}
 	private void setTableColumn() {
@@ -99,5 +101,19 @@ public class MainController {
 				return row;
 			}
 		});
+	}
+	
+	private void showFileDetails(Document document){
+		if (document!=null) {
+			ownerLabel.setText(document.getOwner());
+			createTimeLabel.setText(document.getCteateTime());
+			positionLabel.setText("");
+			modelLabel.setText("");
+		} else {
+			ownerLabel.setText("");
+			createTimeLabel.setText("");
+			positionLabel.setText("");
+			modelLabel.setText("");
+		}
 	}
 }

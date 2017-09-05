@@ -49,10 +49,10 @@
                         <Label layoutX="10.0" layoutY="14.0" text="创建时间" GridPane.rowIndex="1" />
                         <Label layoutX="10.0" layoutY="44.0" text="位置" GridPane.rowIndex="2" />
                         <Label layoutX="10.0" layoutY="74.0" text="属性" GridPane.rowIndex="3" />
-                        <Label fx:id="ownerLabel" text="Label" GridPane.columnIndex="1" />
-                        <Label fx:id="createTimeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="positionLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="modelLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="ownerLabel" GridPane.columnIndex="1" />
+                        <Label fx:id="createTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="positionLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="modelLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <Label layoutX="48.0" layoutY="3.0" text="文件属性" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
