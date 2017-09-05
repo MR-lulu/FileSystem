@@ -28,7 +28,8 @@ public class MainController {
 	@FXML private TableColumn<Document, String> modifyTimeColumn;
 	@FXML private TableColumn<Document, String> typeColumn;
 	@FXML private TableColumn<Document, Integer> sizeColumn;
-
+	private ObservableList<Document> documents = FXCollections.observableArrayList();
+	
 	@FXML private Label ownerLabel;
 	@FXML private Label createTimeLabel;
 	@FXML private Label positionLabel;
@@ -53,12 +54,13 @@ public class MainController {
 		
 	}
 	private void setTableView() {
-		ObservableList<Document> documents = FXCollections.observableArrayList();
-		documents.add(new Document("bin",1,0,"admin","2017-9-4","2017-9-4",1));
+		documents.add(new Document("home",0,0,"pcy","2017-9-4","2017-9-4",1));
+		documents.add(new Document("data.txt",1,0,"admin","2017-9-4","2017-9-4",2));
+		documents.add(new Document("bin",0,0,"admin","2017-9-4","2017-9-4",1));
 		tableView.setItems(documents);
 		tableView.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> {
-					
+					showFileDetails(newValue);
 				});
 	}
 	private void setTableColumn() {
@@ -76,6 +78,7 @@ public class MainController {
 				TableRow<Document> row = new TableRow<Document>();
 				MenuItem openItem = new MenuItem("打开");
 				MenuItem deleteItem = new MenuItem("删除");
+				MenuItem shareItem = new MenuItem("共享");
 				MenuItem renameItem = new MenuItem("重命名");
 				MenuItem setmodeItem = new MenuItem("设置属性");
 				
@@ -89,7 +92,7 @@ public class MainController {
 					dialog.showAndWait();
 				});
 				
-				ContextMenu menu = new ContextMenu(openItem,deleteItem,renameItem,setmodeItem);
+				ContextMenu menu = new ContextMenu(openItem,deleteItem,renameItem,setmodeItem,shareItem);
 				row.setOnMouseClicked(e->{
 					if (e.getButton() == MouseButton.PRIMARY &&
 							!row.isEmpty()) {
@@ -99,5 +102,19 @@ public class MainController {
 				return row;
 			}
 		});
+	}
+	
+	private void showFileDetails(Document document){
+		if (document!=null) {
+			ownerLabel.setText(document.getOwner());
+			createTimeLabel.setText(document.getCteateTime());
+			positionLabel.setText("");
+			modelLabel.setText("");
+		} else {
+			ownerLabel.setText("");
+			createTimeLabel.setText("");
+			positionLabel.setText("");
+			modelLabel.setText("");
+		}
 	}
 }
