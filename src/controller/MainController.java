@@ -11,6 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.util.Callback;
 import model.Document;
@@ -49,6 +50,7 @@ public class MainController {
 		tableViewMenu.getItems().clear();
 		tableViewMenu.getItems().add(itemFile);
 		tableViewMenu.getItems().add(itemDir);
+		
 	}
 	private void setTableView() {
 		ObservableList<Document> documents = FXCollections.observableArrayList();
@@ -73,12 +75,20 @@ public class MainController {
 				// TODO Auto-generated method stub
 				TableRow<Document> row = new TableRow<Document>();
 				MenuItem openItem = new MenuItem("打开");
-				openItem.setOnAction(e->{
-					System.out.println("打开文件");
-				});
 				MenuItem deleteItem = new MenuItem("删除");
 				MenuItem renameItem = new MenuItem("重命名");
 				MenuItem setmodeItem = new MenuItem("设置属性");
+				
+				renameItem.setOnAction(e->{
+					String name = tableView.getSelectionModel().selectedItemProperty().getValue().getName();
+					TextInputDialog dialog = new TextInputDialog(name);
+					dialog.setTitle("重命名");
+					dialog.setHeaderText("");
+					dialog.setContentText("请输入新名字:");
+					
+					dialog.showAndWait();
+				});
+				
 				ContextMenu menu = new ContextMenu(openItem,deleteItem,renameItem,setmodeItem);
 				row.setOnMouseClicked(e->{
 					if (e.getButton() == MouseButton.PRIMARY &&
