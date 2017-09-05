@@ -78,7 +78,6 @@ public class MainController {
 				TableRow<Document> row = new TableRow<Document>();
 				MenuItem openItem = new MenuItem("打开");
 				MenuItem deleteItem = new MenuItem("删除");
-				MenuItem shareItem = new MenuItem("共享");
 				MenuItem renameItem = new MenuItem("重命名");
 				MenuItem setmodeItem = new MenuItem("设置属性");
 				
@@ -92,7 +91,7 @@ public class MainController {
 					dialog.showAndWait();
 				});
 				
-				ContextMenu menu = new ContextMenu(openItem,deleteItem,renameItem,setmodeItem,shareItem);
+				ContextMenu menu = new ContextMenu(openItem,deleteItem,renameItem,setmodeItem);
 				row.setOnMouseClicked(e->{
 					if (e.getButton() == MouseButton.PRIMARY &&
 							!row.isEmpty()) {
