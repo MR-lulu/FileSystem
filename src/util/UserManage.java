@@ -15,8 +15,8 @@ import model.User;
 public class UserManage implements Serializable {
 	transient private User nowUser=new User();
 	private	ArrayList<User> users=new ArrayList<User>();
-private static UserManage instance=new UserManage();//单例对象
-	private UserManage()
+private static UserManage instance=new UserManage();//鍗曚緥瀵硅薄
+	UserManage()
 	{
 		try {
 			read();
@@ -46,7 +46,7 @@ private static UserManage instance=new UserManage();//单例对象
 
 	public void Save() throws IOException{
 		File file = new File("data/user.txt");
-		   //Student对象序列化过程  
+		   //Student瀵硅薄搴忓垪鍖栬繃绋�  
 		   FileOutputStream fos = new FileOutputStream(file);  
 		   ObjectOutputStream oos = new ObjectOutputStream(fos);  
 		   oos.writeObject(this.users);  
@@ -80,7 +80,7 @@ private static UserManage instance=new UserManage();//单例对象
 		this.nowUser.setPower(0);
 	}
 
-	public int addUser(String username,String password) throws IOException//0成功，1用户名重复，2密码不够6位，3权限不足
+	public int addUser(String username,String password) throws IOException//0鎴愬姛锛�1鐢ㄦ埛鍚嶉噸澶嶏紝2瀵嗙爜涓嶅6浣嶏紝3鏉冮檺涓嶈冻
 	{
 		
 		if(this.nowUser.getUsername().equals("Administrator"))
@@ -88,21 +88,21 @@ private static UserManage instance=new UserManage();//单例对象
 			
 			if(username.length()<6)
 			{
-				return 2;//密码不够6位
+				return 2;//瀵嗙爜涓嶅6浣�
 			}
 			for(int i=0;i<this.users.size();i++){
 				if(this.users.get(i).getUsername().equals(username))
 				{
 					
-					return 1;//用户名重复
+					return 1;//鐢ㄦ埛鍚嶉噸澶�
 				}
 			 }
 			 User newUser=new User(username,password,0);
 			 this.getUsers().add(newUser);
 			 Save();
-			 return 0;//成功
+			 return 0;//鎴愬姛
 		}
-		return 3;//权限不足
+		return 3;//鏉冮檺涓嶈冻
 	}
 
 	public boolean deleteUser(String username) throws IOException
@@ -124,13 +124,13 @@ private static UserManage instance=new UserManage();//单例对象
 		return false;
 	}
 
-	public int changePassword(String username,String password) throws IOException//0成功，1未找到用户，2密码不够6位，3权限不足
+	public int changePassword(String username,String password) throws IOException//0鎴愬姛锛�1鏈壘鍒扮敤鎴凤紝2瀵嗙爜涓嶅6浣嶏紝3鏉冮檺涓嶈冻
 	{
 		if(this.nowUser.getUsername().equals("Administrator"))
 		{
 			if(username.length()<6)
 			{
-				return 2;//密码不够6位
+				return 2;//瀵嗙爜涓嶅6浣�
 			}
 			for(int i=0;i<this.users.size();i++){
 				if(this.users.get(i).getUsername().equals(username))
@@ -139,13 +139,13 @@ private static UserManage instance=new UserManage();//单例对象
 					User newUser=new User(username,password,0);
 					 this.users.add(newUser);
 					 Save();
-					 return 0;//0成功
+					 return 0;//0鎴愬姛
 				}
 			 }
 			 
-			 return 1;//1未找到用户
+			 return 1;//1鏈壘鍒扮敤鎴�
 		}
-		return 3;//3权限不足
+		return 3;//3鏉冮檺涓嶈冻
 	}
 
 

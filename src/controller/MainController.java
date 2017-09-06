@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -15,15 +17,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import model.Document;
+import util.AddUserDialog;
+import util.DeleteUserDialog;
 import util.SimpleSuccessAlert;
+import util.UserManage;
 
 /**
  * ClassName: MainController 
@@ -58,7 +67,8 @@ public class MainController {
 	private void setMenu(){
 		MenuItem itemDir = new MenuItem("新建文件夹");
 		MenuItem itemFile = new MenuItem("新建文件");
-		MenuItem userItem,aboutItem;
+		MenuItem deleteItem = new MenuItem("注销用户");
+		MenuItem addItem,aboutItem;
 		
 		Menu fileMenu = menuBar.getMenus().get(0);
 		Menu toolMenu = menuBar.getMenus().get(1);
@@ -68,25 +78,57 @@ public class MainController {
 		tableViewMenu.getItems().addAll(itemFile,itemDir);
 		
 		toolMenu.setText("Tool");
-		userItem = toolMenu.getItems().get(0); 
-		userItem.setText("用户管理");
-		userItem.setOnAction(e->{
-			//用户管理操作弹出框
+		toolMenu.getItems().add(deleteItem);
+		//点击删除用户
+		deleteItem.setOnAction(e->{
+			DeleteUserDialog deleteUserDialog = new DeleteUserDialog();
+			Optional<String> result = deleteUserDialog.showAndWait();
+			result.ifPresent(username->{
+				try {
+					UserManage.getInstance().deleteUser(username);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+		});
+		
+		//添加用户
+		addItem = toolMenu.getItems().get(0); 
+		addItem.setText("添加用户");
+		addItem.setOnAction(e->{
+			AddUserDialog dialog = new AddUserDialog();
+			Optional<Pair<String, String>> result = dialog.showAndWait();
+			result.ifPresent(usernamePassword -> {
+			    System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
+			});
 		});
 		
 		fileMenu.getItems().clear();
 		fileMenu.getItems().addAll(itemFile,itemDir);
 		itemDir.setOnAction(e->{
+			TextInputDialog dialog = new TextInputDialog();
+			dialog.setTitle("新建文件夹");
+			dialog.setHeaderText("");
+			//
+			dialog.setContentText("请输入文件夹名:");
 			
+			Optional<String> result = dialog.showAndWait();
 		});
 		itemFile.setOnAction(e->{
+			TextInputDialog dialog = new TextInputDialog();
+			dialog.setTitle("新建文件夹");
+			dialog.setHeaderText("");
+			dialog.setContentText("请输入文件名:");
 			
+			Optional<String> result = dialog.showAndWait();
 		});
 		
 		aboutItem = helpMenu.getItems().get(0); 
 		aboutItem.setText("关于");
 		aboutItem.setOnAction(e->{
-			//关于弹出框
+			SimpleSuccessAlert alert = new SimpleSuccessAlert("关于本系统","模拟文件系统", "作者：MR_LULU");
+			alert.show();
 		});	
 	}
 	private void setTableView() {
