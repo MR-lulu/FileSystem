@@ -15,6 +15,24 @@ import model.User;
 public class UserManage implements Serializable {
 	transient private User nowUser=new User();
 	private	ArrayList<User> users=new ArrayList<User>();
+private static UserManage instance=new UserManage();//单例对象
+	private UserManage()
+	{
+		try {
+			read();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static UserManage getInstance()
+	{
+		return instance;
+	}
 	public void read() throws IOException, ClassNotFoundException
 	{
 		File file = new File("data/user.txt");
