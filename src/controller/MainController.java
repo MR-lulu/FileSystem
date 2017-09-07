@@ -141,6 +141,7 @@ public class MainController {
 				(observable, oldValue, newValue) -> {
 					showFileDetails(newValue);
 				});
+		//
 	}
 	private void setTableColumn() {
 		nameColumn.setCellValueFactory(value->value.getValue().nameProperty());
