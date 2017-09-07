@@ -47,7 +47,7 @@
                      <children>
                         <Label text="拥有者" />
                         <Label layoutX="10.0" layoutY="14.0" text="创建时间" GridPane.rowIndex="1" />
-                        <Label layoutX="10.0" layoutY="44.0" text="位置" GridPane.rowIndex="2" />
+                        <Label layoutX="10.0" layoutY="44.0" text="权限" GridPane.rowIndex="2" />
                         <Label layoutX="10.0" layoutY="74.0" text="属性" GridPane.rowIndex="3" />
                         <Label fx:id="ownerLabel" GridPane.columnIndex="1" />
                         <Label fx:id="createTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />

@@ -31,6 +31,7 @@ import javafx.util.Pair;
 import model.Document;
 import util.AddUserDialog;
 import util.DeleteUserDialog;
+import util.ModelDialog;
 import util.SimpleSuccessAlert;
 import util.UserManage;
 
@@ -231,7 +232,13 @@ public class MainController {
 			}
 		});
 		setmodeItem.setOnAction(e->{
+			int model = tableView.getSelectionModel().getSelectedItem().getSize();
 			
+			ModelDialog dialog = new ModelDialog(2);
+			Optional<Integer> result = dialog.showAndWait();
+			if (result.isPresent()) {
+				System.out.println(result.get());
+			}
 		});
 		
 		ContextMenu menu = new ContextMenu(openItem,deleteItem,renameItem,setmodeItem,shareItem);
